@@ -1008,3 +1008,67 @@ body {
 .mobile-phone-btn {
     right: 16px;
 }
+/* Убираем горизонтальный скролл */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 0 10px;
+}
+
+.schedule-carousel {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.carousel-track-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: calc(100% - 10px);
+}
+
+.schedule-card {
+    min-width: 280px;
+    max-width: 280px;
+}
+
+.schedule-header {
+    grid-template-columns: 65px 1fr 80px 35px;
+    gap: 4px;
+}
+
+.schedule-row {
+    grid-template-columns: 65px 1fr 80px 35px;
+    gap: 4px;
+}
+
+.schedule-time-compact {
+    font-size: 0.65rem;
+}
+
+.schedule-name-compact {
+    font-size: 0.7rem;
+}
+
+.schedule-teacher-compact {
+    font-size: 0.6rem;
+}
+
+.schedule-duration-compact {
+    font-size: 0.6rem;
+}
+
+/* Отключаем параллакс на мобилках */
+@media (max-width: 768px) {
+    .parallax-bg {
+        transform: none !important;
+        transition: none !important;
+        height: 100%;
+        background-attachment: fixed;
+        background-position: top center;
+    }
+}

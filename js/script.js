@@ -136,14 +136,17 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
 
 window.addEventListener("scroll", () => {
     const bg = document.getElementById("parallaxBg");
-    if (!bg) return;
-    const scrolled = window.scrollY;
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const percent = maxScroll > 0 ? scrolled / maxScroll : 0;
-    targetTranslateY = percent * 50;
-    currentTranslateY = currentTranslateY + (targetTranslateY - currentTranslateY) * 0.1;
-    bg.style.transform = `translateY(${currentTranslateY}px)`;
-    
+
+    // Параллакс только на десктопе
+    if (bg && window.innerWidth > 768) {
+        const scrolled = window.scrollY;
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const percent = maxScroll > 0 ? scrolled / maxScroll : 0;
+        targetTranslateY = percent * 50;
+        currentTranslateY = currentTranslateY + (targetTranslateY - currentTranslateY) * 0.1;
+        bg.style.transform = `translateY(${currentTranslateY}px)`;
+    }
+
     document.querySelectorAll('.fade-on-scroll, .fade-left, .fade-right').forEach(el => {
         const rect = el.getBoundingClientRect();
         const isVisible = rect.top < window.innerHeight - 100;
@@ -180,7 +183,7 @@ function openDetailModal(item) {
     const modalPrice = document.getElementById("modalPrice");
     const modalAge = document.getElementById("modalAge");
     const modalDesc = document.getElementById("modalDesc");
-    
+
     modalImg.style.backgroundImage = `url('${item.img}')`;
     modalTitle.textContent = item.name;
     modalPrice.textContent = item.price;
@@ -268,7 +271,7 @@ function renderScheduleCarousel() {
     const weekdays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
     const track = document.getElementById("scheduleTrack");
     if (!track) return;
-    
+
     track.innerHTML = weekdays.map(day => {
         const lessons = scheduleData[day] || [];
         return `
@@ -298,7 +301,7 @@ function renderScheduleCarousel() {
 function initPhoneMasks() {
     const phoneInputs = document.querySelectorAll('#phone');
     phoneInputs.forEach(input => {
-        input.addEventListener('input', function(e) {
+        input.addEventListener('input', function (e) {
             let value = this.value.replace(/\D/g, '');
             if (value.length > 11) value = value.slice(0, 11);
             let formatted = '+7';
@@ -392,14 +395,14 @@ document.addEventListener("DOMContentLoaded", () => {
     initPhoneMasks();
     initModals();
     initCarouselButtons();
-    
+
     document.querySelectorAll('.fade-on-scroll, .fade-left, .fade-right').forEach(el => {
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight - 100) el.classList.add('visible');
     });
-    
+
     document.querySelectorAll('.nav__link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const hash = this.getAttribute('href');
             if (hash && hash.startsWith('#')) {
                 e.preventDefault();
