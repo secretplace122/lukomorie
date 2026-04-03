@@ -235,7 +235,7 @@ function renderHolidays() {
         <div class="holiday-card">
             <div class="holiday-card__img" style="background-image: url('${h.img}');"></div>
             <div class="holiday-card__content">
-                <h3 class="holiday-card__title">🎉 ${h.name}</h3>
+                <h3 class="holiday-card__title">${h.name}</h3>
                 <div class="card__price">${h.price}</div>
                 <p class="card__desc">${h.desc}</p>
                 <div class="card__buttons">

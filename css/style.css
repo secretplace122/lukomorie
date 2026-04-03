@@ -494,7 +494,7 @@ body {
 .schedule-duration-compact {
     font-size: 0.7rem;
     color: #a07a52;
-    text-align: right;
+    text-align: center;
     white-space: nowrap;
 }
 
@@ -997,4 +997,14 @@ body {
 
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.mobile-phone-btn {
+    right: 16px;
 }
