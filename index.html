@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Лукоморье | Детский центр развития в Солнечногорске | Занятия, секции, праздники для детей</title>
+    <meta name="description" content="Детский центр развития «Лукоморье» в Солнечногорске. Развивающие занятия, секции, подготовка к школе, логопед, айкидо, рисование, мастер-классы, дни рождения и игровая комната. Запишитесь на занятие!">
+    <meta name="keywords" content="детский центр, куда сходить с детьми, занятия для детей, организация детских праздников, игровая комната, секции для детей, секция солнечногорск, продлёнка, детские кружки, детские праздники, развлечения для детей, мастер классы для детей, развивашки для детей, рисование для детей">
+    <link href="https://fonts.googleapis.com/css2?family=Neucha&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="parallax-bg" id="parallaxBg"></div>
+    <div class="falling-leaves-container" id="leavesContainer"></div>
+
+    <header class="header">
+        <div class="container header__container">
+            <div class="logo">
+                <img src="/img/logo2.webp" alt="Лукоморье детский центр развития Солнечногорск" class="logo__img">
+                <div class="logo__text">
+                    <h1 class="logo__title">Лукоморье</h1>
+                    <p class="logo__subtitle">детский центр развития</p>
+                    <span class="logo__location">Солнечногорск</span>
+                </div>
+            </div>
+            <div class="header__contacts">
+                <a href="tel:+79261144992" class="header__phone">📞 +7 (926) 114-49-92</a>
+                <button class="btn btn--small btn--outline" id="openFormBtnHeader">Записаться</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">☰</button>
+        </div>
+        <nav class="nav" id="mainNav">
+            <div class="nav__container">
+                <a href="#about" class="nav__link">📖 О нас</a>
+                <a href="#directions" class="nav__link">⭐ Направления</a>
+                <a href="#schedule" class="nav__link">📅 Расписание</a>
+                <a href="#holidays" class="nav__link">🎉 Праздники</a>
+                <a href="#contacts" class="nav__link">📞 Контакты</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero__container">
+                <h2 class="hero__title">Лучшее место для развития вашего ребенка в Солнечногорске</h2>
+                <p class="hero__desc">Профессионализм, любовь к детям и широкий выбор направлений</p>
+                <button class="btn btn--primary" id="openFormBtnHero">Записаться на занятие</button>
+            </div>
+        </section>
+
+        <section id="about" class="about fade-on-scroll">
+            <div class="container">
+                <h2 class="section-title">О центре</h2>
+                <div class="about__grid">
+                    <div class="about__text fade-left">
+                        <p>Детский центр развития «Лукоморье» – место, где каждый ребенок особенный. Мы объединяем профессионализм, любовь к детям и широкий выбор направлений для гармоничного развития.</p>
+                        <ul class="about__list">
+                            <li>Айкидо, мини-сад, каллиграфия, подготовка к школе</li>
+                            <li>Логопед, нейропсихолог, рисование, музыка, лепка</li>
+                            <li>Мастер-классы и дни рождения «под ключ»</li>
+                        </ul>
+                        <div class="about__highlight">
+                            <strong>Почему выбирают нас?</strong>
+                            <p>Профессиональные педагоги, индивидуальный подход, доступные цены и выгодные абонементы.</p>
+                        </div>
+                        <div class="about__worktime">Время работы: ежедневно с 9:00 до 20:00</div>
+                    </div>
+                    <div class="about__info fade-right">
+                        <div class="contact-card">
+                            <div class="contact-card__icon">📍</div>
+                            <div class="contact-card__info">
+                                <h4>Адрес</h4>
+                                <p>ул. Почтовая 17/8, 3 этаж, Солнечногорск (ТЦ Сенеж)</p>
+                                <p class="contact-card__hint">Вход на 3 этаже, справа от кинотеатра, вывеска «Лукоморье»</p>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-card__icon">📞</div>
+                            <div class="contact-card__info">
+                                <h4>Контакты</h4>
+                                <a href="tel:+79261144992" class="contact-link">📞 +7 (926) 114-49-92</a>
+                                <a href="mailto:lukomorey@mail.ru" class="contact-link">✉️ lukomorey@mail.ru</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="directions" class="directions fade-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Направления и секции</h2>
+                <div class="directions__filter">
+                    <button class="filter-btn active" data-filter="all">Все</button>
+                    <button class="filter-btn" data-filter="sport">Спорт</button>
+                    <button class="filter-btn" data-filter="art">Творчество</button>
+                    <button class="filter-btn" data-filter="intellect">Интеллект</button>
+                    <button class="filter-btn" data-filter="health">Здоровье и речь</button>
+                </div>
+                <div class="directions__grid" id="directionsGrid"></div>
+            </div>
+        </section>
+
+        <section id="schedule" class="schedule fade-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Расписание занятий</h2>
+                <div class="schedule-carousel">
+                    <button class="carousel-btn prev" id="schedulePrev">‹</button>
+                    <div class="carousel-track-container" id="scheduleTrackContainer">
+                        <div class="carousel-track" id="scheduleTrack"></div>
+                    </div>
+                    <button class="carousel-btn next" id="scheduleNext">›</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="holidays" class="holidays fade-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Организация праздников</h2>
+                <div class="holidays__grid" id="holidaysGrid"></div>
+            </div>
+        </section>
+
+        <section id="booking" class="booking fade-on-scroll">
+            <div class="container">
+                <div class="booking__wrapper">
+                    <div class="booking__info fade-left">
+                        <h2>Запишитесь на занятие</h2>
+                        <p>Оставьте заявку, и мы подберем удобное время.</p>
+                        <p class="booking__features">✓ Индивидуальный подбор программы<br>✓ Выгодные абонементы<br>✓ Профессиональные педагоги</p>
+                    </div>
+                    <form class="booking__form fade-right" id="bookingForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Имя ребенка / Ваше имя" required maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required>
+                            <span class="form-error" id="phoneError">Введите полный номер телефона</span>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="comment" rows="3" placeholder="Комментарий, удобное время или выбранная услуга" maxlength="500"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+                        <p class="form-note">Нажимая на кнопку, вы соглашаетесь с обработкой данных</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="contacts fade-on-scroll">
+            <div class="container">
+                <h2 class="section-title">Контакты и соцсети</h2>
+                <div class="contacts__content">
+                    <div class="contacts__map fade-left">
+                        <iframe src="https://yandex.ru/map-widget/v1/?ll=36.976636,56.184817&z=17&pt=36.976636,56.184817&l=map" width="100%" height="300" style="border:0; border-radius: 28px;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="contacts__details fade-right">
+                        <div class="contact-card">
+                            <div class="contact-card__icon">📍</div>
+                            <div class="contact-card__info">
+                                <h4>Как нас найти</h4>
+                                <p>ул. Почтовая 17/8, 3 этаж, Солнечногорск (ТЦ Сенеж)</p>
+                                <p class="contact-card__hint">Вход на 3 этаже, справа от кинотеатра, вывеска «Лукоморье»</p>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-card__icon">📞</div>
+                            <div class="contact-card__info">
+                                <h4>Свяжитесь с нами</h4>
+                                <a href="tel:+79261144992" class="contact-link">📞 +7 (926) 114-49-92</a>
+                                <a href="mailto:lukomorey@mail.ru" class="contact-link">✉️ lukomorey@mail.ru</a>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-card__icon">🌐</div>
+                            <div class="contact-card__info">
+                                <h4>Мы в соцсетях</h4>
+                                <div class="social-links">
+                                    <a href="https://vk.com/lukomorey_sol" class="social-link" target="_blank">📘 VK</a>
+                                    <a href="https://t.me/lukomorey_sol" class="social-link" target="_blank">📱 Telegram</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-card__icon">⭐</div>
+                            <div class="contact-card__info">
+                                <h4>Отзывы</h4>
+                                <a href="https://yandex.ru/maps/org/lukomorye/1182742067/reviews/" target="_blank" class="yandex-reviews-btn">
+                                    📍 Оценить и почитать отзывы на Яндекс.Картах
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__content">
+            <div class="footer__col">
+                <p>© <span id="currentYear"></span> Детский центр развития «Лукоморье» Солнечногорск</p>
+                <p class="footer__address">📍 ул. Почтовая 17/8, 3 этаж, Солнечногорск</p>
+            </div>
+            <div class="footer__col">
+                <p>📞 <a href="tel:+79261144992">+7 (926) 114-49-92</a></p>
+                <p>✉️ <a href="mailto:lukomorey@mail.ru">lukomorey@mail.ru</a></p>
+            </div>
+            <div class="footer__col">
+                <p>⭐ Детский центр развития</p>
+                <p>⭐ Занятия для детей в Солнечногорске</p>
+                <p>⭐ Секции и кружки для детей</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="tel:+79261144992" class="mobile-phone-btn" id="mobilePhoneBtn">📞</a>
+
+    <div class="modal" id="detailModal">
+        <div class="modal__content">
+            <span class="modal__close">&times;</span>
+            <div class="modal__img" id="modalImg"></div>
+            <h3 id="modalTitle"></h3>
+            <div class="modal__price" id="modalPrice"></div>
+            <div class="modal__age" id="modalAge"></div>
+            <p id="modalDesc"></p>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
