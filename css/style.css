@@ -18,14 +18,14 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 120%;
+    height: 100%;
     background-image: url('../img/background.webp');
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
     z-index: -2;
     opacity: 0.3;
-    transition: transform 0.05s linear;
+    will-change: transform;
 }
 
 .falling-leaves-container {
@@ -44,9 +44,9 @@ body {
     width: 20px;
     height: 20px;
     background: url('../img/leaf.webp') center/contain no-repeat;
-    clip-path: none;
     opacity: 0.6;
     animation: fall linear infinite;
+    will-change: transform;
 }
 
 @keyframes fall {
@@ -54,7 +54,6 @@ body {
         transform: translateY(-10vh) rotate(0deg);
         opacity: 0.7;
     }
-
     100% {
         transform: translateY(110vh) rotate(360deg);
         opacity: 0;
@@ -210,13 +209,6 @@ body {
     text-decoration: none;
     font-size: 1.1rem;
     transition: 0.2s;
-}
-
-.nav__link--highlight {
-    background: #e6b17e;
-    padding: 4px 14px;
-    border-radius: 40px;
-    color: #2d2b1f;
 }
 
 .hero {
@@ -887,13 +879,14 @@ body {
 
     .nav {
         display: none;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 80px;
         left: 0;
         width: 100%;
         background: #3e2c18;
         border-radius: 0 0 20px 20px;
         margin-top: 0;
+        z-index: 99;
     }
 
     .nav.open {
@@ -935,7 +928,71 @@ body {
     }
 
     .directions__grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .holidays__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .card {
+        border-radius: 16px;
+    }
+
+    .card__img {
+        height: 230px;
+    }
+
+    .card__content {
+        padding: 8px 10px 10px 10px;
+    }
+
+    .card__title {
+        font-size: 0.9rem;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .card__price {
+        font-size: 0.8rem;
+        margin: 2px 0;
+    }
+
+    .card__desc {
+        display: none;
+    }
+
+    .holiday-card {
+        border-radius: 16px;
+    }
+
+    .holiday-card__img {
+        height: 250px;
+    }
+
+    .holiday-card__content {
+        padding: 8px 10px 10px 10px;
+    }
+
+    .holiday-card__title {
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btn--card {
+        padding: 6px 12px;
+        font-size: 0.7rem;
+    }
+
+    .btn--details {
+        padding: 6px 12px;
+        font-size: 0.7rem;
     }
 
     .schedule-card {
@@ -944,9 +1001,9 @@ body {
     }
 
     .schedule-header {
-        grid-template-columns: 75px 1fr 85px 30px;
+        grid-template-columns: 70px 1fr 97px 30px;
         gap: 4px;
-        font-size: 0.6rem;
+        font-size: 0.5rem;
     }
 
     .schedule-row {
@@ -981,94 +1038,47 @@ body {
         font-size: 1.2rem;
     }
 
-    .card__desc {
-        font-size: 0.85rem;
-        line-height: 1.4;
+    .parallax-bg {
+        transform: none !important;
+        transition: none !important;
+        background-attachment: fixed;
+        background-position: top center;
+    }
+}
+
+@media (max-width: 480px) {
+    .directions__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .holidays__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
     }
 
     .card__img {
-        height: 400px;
+        height: 200px;
     }
 
     .holiday-card__img {
-        height: 400px;
+        height: 170px;
+    }
+
+    .card__title {
+        font-size: 0.8rem;
+    }
+
+    .holiday-card__title {
+        font-size: 0.8rem;
+    }
+
+    .btn--card, .btn--details {
+        padding: 4px 8px;
+        font-size: 0.65rem;
     }
 }
 
 html {
     scroll-behavior: smooth;
-}
-
-body {
-    overflow-x: hidden;
-    width: 100%;
-    position: relative;
-}
-
-.mobile-phone-btn {
-    right: 16px;
-}
-/* Убираем горизонтальный скролл */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 100%;
-    overflow-x: hidden;
-    padding: 0 10px;
-}
-
-.schedule-carousel {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-.carousel-track-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: calc(100% - 10px);
-}
-
-.schedule-card {
-    min-width: 280px;
-    max-width: 280px;
-}
-
-.schedule-header {
-    grid-template-columns: 65px 1fr 80px 35px;
-    gap: 4px;
-}
-
-.schedule-row {
-    grid-template-columns: 65px 1fr 80px 35px;
-    gap: 4px;
-}
-
-.schedule-time-compact {
-    font-size: 0.65rem;
-}
-
-.schedule-name-compact {
-    font-size: 0.7rem;
-}
-
-.schedule-teacher-compact {
-    font-size: 0.6rem;
-}
-
-.schedule-duration-compact {
-    font-size: 0.6rem;
-}
-
-/* Отключаем параллакс на мобилках */
-@media (max-width: 768px) {
-    .parallax-bg {
-        transform: none !important;
-        transition: none !important;
-        height: 100%;
-        background-attachment: fixed;
-        background-position: top center;
-    }
 }

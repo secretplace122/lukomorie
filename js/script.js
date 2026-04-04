@@ -129,203 +129,212 @@ const scheduleData = {
     ]
 };
 
-let currentTranslateY = 0;
-let targetTranslateY = 0;
-
 document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-window.addEventListener("scroll", () => {
-    const bg = document.getElementById("parallaxBg");
-
-    // Параллакс только на десктопе
-    if (bg && window.innerWidth > 768) {
-        const scrolled = window.scrollY;
-        const maxScroll = document.body.scrollHeight - window.innerHeight;
-        const percent = maxScroll > 0 ? scrolled / maxScroll : 0;
-        targetTranslateY = percent * 50;
-        currentTranslateY = currentTranslateY + (targetTranslateY - currentTranslateY) * 0.1;
-        bg.style.transform = `translateY(${currentTranslateY}px)`;
-    }
-
-    document.querySelectorAll('.fade-on-scroll, .fade-left, .fade-right').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight - 100;
-        if (isVisible) el.classList.add('visible');
+if (window.innerWidth > 768) {
+    window.addEventListener("scroll", function() {
+        var bg = document.getElementById("parallaxBg");
+        if (bg) {
+            var scrolled = window.scrollY;
+            var maxScroll = document.body.scrollHeight - window.innerHeight;
+            var percent = maxScroll > 0 ? scrolled / maxScroll : 0;
+            var translateY = percent * 30;
+            bg.style.transform = "translateY(" + translateY + "px)";
+        }
     });
-});
+}
 
 function createLeaves() {
-    const container = document.getElementById("leavesContainer");
-    for (let i = 0; i < 25; i++) {
-        const leaf = document.createElement("div");
+    var container = document.getElementById("leavesContainer");
+    if (!container) return;
+    for (var i = 0; i < 20; i++) {
+        var leaf = document.createElement("div");
         leaf.classList.add("leaf");
         leaf.style.left = Math.random() * 100 + "%";
         leaf.style.width = 12 + Math.random() * 16 + "px";
         leaf.style.height = leaf.style.width;
-        leaf.style.animationDuration = 6 + Math.random() * 12 + "s";
-        leaf.style.animationDelay = Math.random() * 15 + "s";
+        leaf.style.animationDuration = 8 + Math.random() * 12 + "s";
+        leaf.style.animationDelay = Math.random() * 10 + "s";
         leaf.style.opacity = 0.3 + Math.random() * 0.5;
         container.appendChild(leaf);
     }
 }
 
 function scrollToBooking() {
-    const bookingSection = document.getElementById("booking");
+    var bookingSection = document.getElementById("booking");
     if (bookingSection) {
         bookingSection.scrollIntoView({ behavior: "smooth" });
     }
 }
 
 function openDetailModal(item) {
-    const modal = document.getElementById("detailModal");
-    const modalImg = document.getElementById("modalImg");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalAge = document.getElementById("modalAge");
-    const modalDesc = document.getElementById("modalDesc");
-
-    modalImg.style.backgroundImage = `url('${item.img}')`;
+    var modal = document.getElementById("detailModal");
+    var modalImg = document.getElementById("modalImg");
+    var modalTitle = document.getElementById("modalTitle");
+    var modalPrice = document.getElementById("modalPrice");
+    var modalAge = document.getElementById("modalAge");
+    var modalDesc = document.getElementById("modalDesc");
+    modalImg.style.backgroundImage = "url('" + item.img + "')";
     modalTitle.textContent = item.name;
     modalPrice.textContent = item.price;
-    modalAge.innerHTML = `Возраст: ${item.age || "любой"}`;
+    modalAge.innerHTML = "Возраст: " + (item.age || "любой");
     modalDesc.textContent = item.desc;
     modal.style.display = "flex";
 }
 
-function renderDirections(filter = "all") {
-    const grid = document.getElementById("directionsGrid");
+function renderDirections(filter) {
+    if (filter === undefined) filter = "all";
+    var grid = document.getElementById("directionsGrid");
     if (!grid) return;
-    const filtered = filter === "all" ? directionsData : directionsData.filter(d => d.category === filter);
-    grid.innerHTML = filtered.map(d => `
-        <div class="card">
-            <div class="card__img" style="background-image: url('${d.img}');">
-                <span class="card__badge">${d.age}</span>
-            </div>
-            <div class="card__content">
-                <h3 class="card__title">${d.name}</h3>
-                <div class="card__price">${d.price}</div>
-                <p class="card__desc">${d.desc}</p>
-                <div class="card__buttons">
-                    <button class="btn btn--card" data-service="${d.name}">Выбрать</button>
-                    <button class="btn btn--details" data-detail='${JSON.stringify(d)}'>Подробнее</button>
-                </div>
-            </div>
-        </div>
-    `).join("");
-    document.querySelectorAll(".btn--card").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const service = btn.getAttribute("data-service");
-            const commentField = document.getElementById("comment");
+    var filtered = filter === "all" ? directionsData : directionsData.filter(function(d) { return d.category === filter; });
+    var html = "";
+    for (var i = 0; i < filtered.length; i++) {
+        var d = filtered[i];
+        html += '<div class="card">' +
+            '<div class="card__img" style="background-image: url(\'' + d.img + '\');">' +
+            '<span class="card__badge">' + d.age + '</span>' +
+            '</div>' +
+            '<div class="card__content">' +
+            '<h3 class="card__title">' + d.name + '</h3>' +
+            '<div class="card__price">' + d.price + '</div>' +
+            '<p class="card__desc">' + d.desc.substring(0, 100) + '...</p>' +
+            '<div class="card__buttons">' +
+            '<button class="btn btn--card" data-service="' + d.name + '">Выбрать</button>' +
+            '<button class="btn btn--details" data-detail=\'' + JSON.stringify(d).replace(/'/g, "&#39;") + '\'>Подробнее</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    }
+    grid.innerHTML = html;
+    
+    var cardBtns = document.querySelectorAll(".btn--card");
+    for (var j = 0; j < cardBtns.length; j++) {
+        cardBtns[j].addEventListener("click", function(e) {
+            var service = this.getAttribute("data-service");
+            var commentField = document.getElementById("comment");
             if (commentField) {
-                const currentComment = commentField.value;
-                commentField.value = currentComment ? `${currentComment}\nУслуга: ${service}` : `Услуга: ${service}`;
+                var currentComment = commentField.value;
+                commentField.value = currentComment ? currentComment + "\nУслуга: " + service : "Услуга: " + service;
             }
             scrollToBooking();
         });
-    });
-    document.querySelectorAll(".btn--details").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const data = JSON.parse(btn.getAttribute("data-detail"));
+    }
+    
+    var detailBtns = document.querySelectorAll(".btn--details");
+    for (var k = 0; k < detailBtns.length; k++) {
+        detailBtns[k].addEventListener("click", function(e) {
+            var data = JSON.parse(this.getAttribute("data-detail"));
             openDetailModal(data);
         });
-    });
+    }
 }
 
 function renderHolidays() {
-    const container = document.getElementById("holidaysGrid");
+    var container = document.getElementById("holidaysGrid");
     if (!container) return;
-    container.innerHTML = holidaysData.map(h => `
-        <div class="holiday-card">
-            <div class="holiday-card__img" style="background-image: url('${h.img}');"></div>
-            <div class="holiday-card__content">
-                <h3 class="holiday-card__title">${h.name}</h3>
-                <div class="card__price">${h.price}</div>
-                <p class="card__desc">${h.desc}</p>
-                <div class="card__buttons">
-                    <button class="btn btn--card" data-service="${h.name}">Выбрать</button>
-                    <button class="btn btn--details" data-detail='${JSON.stringify(h)}'>Подробнее</button>
-                </div>
-            </div>
-        </div>
-    `).join("");
-    document.querySelectorAll(".btn--card").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const service = btn.getAttribute("data-service");
-            const commentField = document.getElementById("comment");
+    var html = "";
+    for (var i = 0; i < holidaysData.length; i++) {
+        var h = holidaysData[i];
+        html += '<div class="holiday-card">' +
+            '<div class="holiday-card__img" style="background-image: url(\'' + h.img + '\');"></div>' +
+            '<div class="holiday-card__content">' +
+            '<h3 class="holiday-card__title">' + h.name + '</h3>' +
+            '<div class="card__price">' + h.price + '</div>' +
+            '<p class="card__desc">' + h.desc.substring(0, 100) + '...</p>' +
+            '<div class="card__buttons">' +
+            '<button class="btn btn--card" data-service="' + h.name + '">Выбрать</button>' +
+            '<button class="btn btn--details" data-detail=\'' + JSON.stringify(h).replace(/'/g, "&#39;") + '\'>Подробнее</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    }
+    container.innerHTML = html;
+    
+    var cardBtns = document.querySelectorAll(".btn--card");
+    for (var j = 0; j < cardBtns.length; j++) {
+        cardBtns[j].addEventListener("click", function(e) {
+            var service = this.getAttribute("data-service");
+            var commentField = document.getElementById("comment");
             if (commentField) {
-                const currentComment = commentField.value;
-                commentField.value = currentComment ? `${currentComment}\nУслуга: ${service}` : `Услуга: ${service}`;
+                var currentComment = commentField.value;
+                commentField.value = currentComment ? currentComment + "\nУслуга: " + service : "Услуга: " + service;
             }
             scrollToBooking();
         });
-    });
-    document.querySelectorAll(".btn--details").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const data = JSON.parse(btn.getAttribute("data-detail"));
+    }
+    
+    var detailBtns = document.querySelectorAll(".btn--details");
+    for (var k = 0; k < detailBtns.length; k++) {
+        detailBtns[k].addEventListener("click", function(e) {
+            var data = JSON.parse(this.getAttribute("data-detail"));
             openDetailModal(data);
         });
-    });
+    }
 }
 
 function renderScheduleCarousel() {
-    const weekdays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
-    const track = document.getElementById("scheduleTrack");
+    var weekdays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+    var track = document.getElementById("scheduleTrack");
     if (!track) return;
-
-    track.innerHTML = weekdays.map(day => {
-        const lessons = scheduleData[day] || [];
-        return `
-            <div class="schedule-card">
-                <div class="schedule-day">${day}</div>
-                <div class="schedule-table-compact">
-                    <div class="schedule-header">
-                        <span>Время</span>
-                        <span>Мероприятие</span>
-                        <span>Преподаватель</span>
-                        <span>Длит.</span>
-                    </div>
-                    ${lessons.map(l => `
-                        <div class="schedule-row">
-                            <span class="schedule-time-compact">${l.time}</span>
-                            <span class="schedule-name-compact">${l.lesson}</span>
-                            <span class="schedule-teacher-compact">${l.teacher || '—'}</span>
-                            <span class="schedule-duration-compact">${l.duration || '—'}</span>
-                        </div>
-                    `).join("")}
-                </div>
-            </div>
-        `;
-    }).join("");
+    var html = "";
+    for (var i = 0; i < weekdays.length; i++) {
+        var day = weekdays[i];
+        var lessons = scheduleData[day] || [];
+        var lessonsHtml = "";
+        for (var j = 0; j < lessons.length; j++) {
+            var l = lessons[j];
+            lessonsHtml += '<div class="schedule-row">' +
+                '<span class="schedule-time-compact">' + l.time + '</span>' +
+                '<span class="schedule-name-compact">' + l.lesson + '</span>' +
+                '<span class="schedule-teacher-compact">' + (l.teacher || '—') + '</span>' +
+                '<span class="schedule-duration-compact">' + (l.duration || '—') + '</span>' +
+                '</div>';
+        }
+        html += '<div class="schedule-card">' +
+            '<div class="schedule-day">' + day + '</div>' +
+            '<div class="schedule-table-compact">' +
+            '<div class="schedule-header">' +
+            '<span>Время</span>' +
+            '<span>Мероприятие</span>' +
+            '<span>Преподаватель</span>' +
+            '<span>Длит.</span>' +
+            '</div>' +
+            lessonsHtml +
+            '</div>' +
+            '</div>';
+    }
+    track.innerHTML = html;
 }
 
 function initPhoneMasks() {
-    const phoneInputs = document.querySelectorAll('#phone');
-    phoneInputs.forEach(input => {
-        input.addEventListener('input', function (e) {
-            let value = this.value.replace(/\D/g, '');
+    var phoneInputs = document.querySelectorAll('#phone');
+    for (var i = 0; i < phoneInputs.length; i++) {
+        var input = phoneInputs[i];
+        input.addEventListener('input', function(e) {
+            var value = this.value.replace(/\D/g, '');
             if (value.length > 11) value = value.slice(0, 11);
-            let formatted = '+7';
+            var formatted = '+7';
             if (value.length > 1) formatted += ' (' + value.slice(1, 4);
             if (value.length >= 5) formatted += ') ' + value.slice(4, 7);
             if (value.length >= 8) formatted += '-' + value.slice(7, 9);
             if (value.length >= 10) formatted += '-' + value.slice(9, 11);
             this.value = formatted;
-            const errorSpan = document.getElementById("phoneError");
+            var errorSpan = document.getElementById("phoneError");
             if (errorSpan) {
-                const isValid = value.length === 11;
+                var isValid = value.length === 11;
                 errorSpan.style.display = isValid ? "none" : "block";
                 this.style.borderColor = isValid ? "#e2cfb0" : "#d9534f";
             }
         });
-    });
+    }
 }
 
 function bindForms() {
-    const form = document.getElementById("bookingForm");
+    var form = document.getElementById("bookingForm");
     if (form) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", function(e) {
             e.preventDefault();
-            const phone = document.getElementById("phone").value.replace(/\D/g, '');
+            var phone = document.getElementById("phone").value.replace(/\D/g, '');
             if (phone.length !== 11) {
                 document.getElementById("phoneError").style.display = "block";
                 return;
@@ -334,57 +343,78 @@ function bindForms() {
             form.reset();
         });
     }
-    const openBtns = document.querySelectorAll("#openFormBtnHeader, #openFormBtnHero");
-    openBtns.forEach(btn => {
-        btn.onclick = (e) => {
+    var openBtns = document.querySelectorAll("#openFormBtnHeader, #openFormBtnHero");
+    for (var i = 0; i < openBtns.length; i++) {
+        openBtns[i].onclick = function(e) {
             e.preventDefault();
             scrollToBooking();
         };
-    });
+    }
 }
 
 function filterEvents() {
-    const btns = document.querySelectorAll(".filter-btn");
-    btns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            btns.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            renderDirections(btn.dataset.filter);
+    var btns = document.querySelectorAll(".filter-btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            for (var j = 0; j < btns.length; j++) {
+                btns[j].classList.remove("active");
+            }
+            this.classList.add("active");
+            renderDirections(this.dataset.filter);
         });
-    });
+    }
 }
 
 function mobileMenu() {
-    const menuBtn = document.getElementById("mobileMenuBtn");
-    const nav = document.getElementById("mainNav");
+    var menuBtn = document.getElementById("mobileMenuBtn");
+    var nav = document.getElementById("mainNav");
     if (menuBtn && nav) {
-        menuBtn.addEventListener("click", (e) => {
+        menuBtn.addEventListener("click", function(e) {
             e.stopPropagation();
             nav.classList.toggle("open");
+        });
+        document.addEventListener('click', function(e) {
+            if (!nav.contains(e.target) && !menuBtn.contains(e.target) && nav.classList.contains('open')) {
+                nav.classList.remove('open');
+            }
         });
     }
 }
 
 function initModals() {
-    const modal = document.getElementById("detailModal");
-    const closeBtn = document.querySelector(".modal__close");
+    var modal = document.getElementById("detailModal");
+    var closeBtn = document.querySelector(".modal__close");
     if (closeBtn) {
-        closeBtn.onclick = () => modal.style.display = "none";
+        closeBtn.onclick = function() { modal.style.display = "none"; };
     }
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+    window.onclick = function(e) { if (e.target === modal) modal.style.display = "none"; };
 }
 
 function initCarouselButtons() {
-    const container = document.getElementById("scheduleTrackContainer");
-    const prevBtn = document.getElementById("schedulePrev");
-    const nextBtn = document.getElementById("scheduleNext");
+    var container = document.getElementById("scheduleTrackContainer");
+    var prevBtn = document.getElementById("schedulePrev");
+    var nextBtn = document.getElementById("scheduleNext");
     if (prevBtn && nextBtn && container) {
-        prevBtn.onclick = () => { container.scrollBy({ left: -400, behavior: "smooth" }); };
-        nextBtn.onclick = () => { container.scrollBy({ left: 400, behavior: "smooth" }); };
+        prevBtn.onclick = function() { container.scrollBy({ left: -400, behavior: "smooth" }); };
+        nextBtn.onclick = function() { container.scrollBy({ left: 400, behavior: "smooth" }); };
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function initScrollAnimations() {
+    var fadeElements = document.querySelectorAll('.fade-on-scroll, .fade-left, .fade-right');
+    var observer = new IntersectionObserver(function(entries) {
+        for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+                entries[i].target.classList.add('visible');
+            }
+        }
+    }, { threshold: 0.1 });
+    for (var i = 0; i < fadeElements.length; i++) {
+        observer.observe(fadeElements[i]);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
     renderDirections();
     renderHolidays();
     renderScheduleCarousel();
@@ -395,25 +425,23 @@ document.addEventListener("DOMContentLoaded", () => {
     initPhoneMasks();
     initModals();
     initCarouselButtons();
-
-    document.querySelectorAll('.fade-on-scroll, .fade-left, .fade-right').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) el.classList.add('visible');
-    });
-
-    document.querySelectorAll('.nav__link').forEach(link => {
-        link.addEventListener('click', function (e) {
-            const hash = this.getAttribute('href');
+    initScrollAnimations();
+    
+    var navLinks = document.querySelectorAll('.nav__link');
+    for (var i = 0; i < navLinks.length; i++) {
+        navLinks[i].addEventListener('click', function(e) {
+            var hash = this.getAttribute('href');
             if (hash && hash.startsWith('#')) {
                 e.preventDefault();
-                const target = document.querySelector(hash);
+                var target = document.querySelector(hash);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                     if (window.innerWidth <= 768) {
-                        document.getElementById("mainNav")?.classList.remove("open");
+                        var nav = document.getElementById("mainNav");
+                        if (nav) nav.classList.remove("open");
                     }
                 }
             }
         });
-    });
+    }
 });
