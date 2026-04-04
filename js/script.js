@@ -132,7 +132,7 @@ const scheduleData = {
 document.getElementById('currentYear').textContent = new Date().getFullYear();
 
 if (window.innerWidth > 768) {
-    window.addEventListener("scroll", function() {
+    window.addEventListener("scroll", function () {
         var bg = document.getElementById("parallaxBg");
         if (bg) {
             var scrolled = window.scrollY;
@@ -186,7 +186,7 @@ function renderDirections(filter) {
     if (filter === undefined) filter = "all";
     var grid = document.getElementById("directionsGrid");
     if (!grid) return;
-    var filtered = filter === "all" ? directionsData : directionsData.filter(function(d) { return d.category === filter; });
+    var filtered = filter === "all" ? directionsData : directionsData.filter(function (d) { return d.category === filter; });
     var html = "";
     for (var i = 0; i < filtered.length; i++) {
         var d = filtered[i];
@@ -206,10 +206,10 @@ function renderDirections(filter) {
             '</div>';
     }
     grid.innerHTML = html;
-    
+
     var cardBtns = document.querySelectorAll(".btn--card");
     for (var j = 0; j < cardBtns.length; j++) {
-        cardBtns[j].addEventListener("click", function(e) {
+        cardBtns[j].addEventListener("click", function (e) {
             var service = this.getAttribute("data-service");
             var commentField = document.getElementById("comment");
             if (commentField) {
@@ -219,10 +219,10 @@ function renderDirections(filter) {
             scrollToBooking();
         });
     }
-    
+
     var detailBtns = document.querySelectorAll(".btn--details");
     for (var k = 0; k < detailBtns.length; k++) {
-        detailBtns[k].addEventListener("click", function(e) {
+        detailBtns[k].addEventListener("click", function (e) {
             var data = JSON.parse(this.getAttribute("data-detail"));
             openDetailModal(data);
         });
@@ -249,10 +249,10 @@ function renderHolidays() {
             '</div>';
     }
     container.innerHTML = html;
-    
+
     var cardBtns = document.querySelectorAll(".btn--card");
     for (var j = 0; j < cardBtns.length; j++) {
-        cardBtns[j].addEventListener("click", function(e) {
+        cardBtns[j].addEventListener("click", function (e) {
             var service = this.getAttribute("data-service");
             var commentField = document.getElementById("comment");
             if (commentField) {
@@ -262,10 +262,10 @@ function renderHolidays() {
             scrollToBooking();
         });
     }
-    
+
     var detailBtns = document.querySelectorAll(".btn--details");
     for (var k = 0; k < detailBtns.length; k++) {
-        detailBtns[k].addEventListener("click", function(e) {
+        detailBtns[k].addEventListener("click", function (e) {
             var data = JSON.parse(this.getAttribute("data-detail"));
             openDetailModal(data);
         });
@@ -310,7 +310,7 @@ function initPhoneMasks() {
     var phoneInputs = document.querySelectorAll('#phone');
     for (var i = 0; i < phoneInputs.length; i++) {
         var input = phoneInputs[i];
-        input.addEventListener('input', function(e) {
+        input.addEventListener('input', function (e) {
             var value = this.value.replace(/\D/g, '');
             if (value.length > 11) value = value.slice(0, 11);
             var formatted = '+7';
@@ -332,7 +332,7 @@ function initPhoneMasks() {
 function bindForms() {
     var form = document.getElementById("bookingForm");
     if (form) {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
             var phone = document.getElementById("phone").value.replace(/\D/g, '');
             if (phone.length !== 11) {
@@ -345,7 +345,7 @@ function bindForms() {
     }
     var openBtns = document.querySelectorAll("#openFormBtnHeader, #openFormBtnHero");
     for (var i = 0; i < openBtns.length; i++) {
-        openBtns[i].onclick = function(e) {
+        openBtns[i].onclick = function (e) {
             e.preventDefault();
             scrollToBooking();
         };
@@ -355,7 +355,7 @@ function bindForms() {
 function filterEvents() {
     var btns = document.querySelectorAll(".filter-btn");
     for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
+        btns[i].addEventListener("click", function () {
             for (var j = 0; j < btns.length; j++) {
                 btns[j].classList.remove("active");
             }
@@ -369,11 +369,11 @@ function mobileMenu() {
     var menuBtn = document.getElementById("mobileMenuBtn");
     var nav = document.getElementById("mainNav");
     if (menuBtn && nav) {
-        menuBtn.addEventListener("click", function(e) {
+        menuBtn.addEventListener("click", function (e) {
             e.stopPropagation();
             nav.classList.toggle("open");
         });
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (!nav.contains(e.target) && !menuBtn.contains(e.target) && nav.classList.contains('open')) {
                 nav.classList.remove('open');
             }
@@ -385,9 +385,9 @@ function initModals() {
     var modal = document.getElementById("detailModal");
     var closeBtn = document.querySelector(".modal__close");
     if (closeBtn) {
-        closeBtn.onclick = function() { modal.style.display = "none"; };
+        closeBtn.onclick = function () { modal.style.display = "none"; };
     }
-    window.onclick = function(e) { if (e.target === modal) modal.style.display = "none"; };
+    window.onclick = function (e) { if (e.target === modal) modal.style.display = "none"; };
 }
 
 function initCarouselButtons() {
@@ -395,14 +395,14 @@ function initCarouselButtons() {
     var prevBtn = document.getElementById("schedulePrev");
     var nextBtn = document.getElementById("scheduleNext");
     if (prevBtn && nextBtn && container) {
-        prevBtn.onclick = function() { container.scrollBy({ left: -400, behavior: "smooth" }); };
-        nextBtn.onclick = function() { container.scrollBy({ left: 400, behavior: "smooth" }); };
+        prevBtn.onclick = function () { container.scrollBy({ left: -400, behavior: "smooth" }); };
+        nextBtn.onclick = function () { container.scrollBy({ left: 400, behavior: "smooth" }); };
     }
 }
 
 function initScrollAnimations() {
     var fadeElements = document.querySelectorAll('.fade-on-scroll, .fade-left, .fade-right');
-    var observer = new IntersectionObserver(function(entries) {
+    var observer = new IntersectionObserver(function (entries) {
         for (var i = 0; i < entries.length; i++) {
             if (entries[i].isIntersecting) {
                 entries[i].target.classList.add('visible');
@@ -414,7 +414,7 @@ function initScrollAnimations() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     renderDirections();
     renderHolidays();
     renderScheduleCarousel();
@@ -426,10 +426,10 @@ document.addEventListener("DOMContentLoaded", function() {
     initModals();
     initCarouselButtons();
     initScrollAnimations();
-    
+
     var navLinks = document.querySelectorAll('.nav__link');
     for (var i = 0; i < navLinks.length; i++) {
-        navLinks[i].addEventListener('click', function(e) {
+        navLinks[i].addEventListener('click', function (e) {
             var hash = this.getAttribute('href');
             if (hash && hash.startsWith('#')) {
                 e.preventDefault();
@@ -444,4 +444,66 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    setTimeout(function () {
+        var titleElement = document.querySelector('.logo__title');
+        if (titleElement && !titleElement.hasAttribute('data-animated')) {
+            titleElement.setAttribute('data-animated', 'true');
+            var text = titleElement.innerText;
+            var letters = text.split('');
+            titleElement.innerHTML = '';
+            titleElement.style.opacity = '1';
+
+            for (var i = 0; i < letters.length; i++) {
+                var span = document.createElement('span');
+                span.textContent = letters[i];
+                span.style.display = 'inline-block';
+                span.style.opacity = '0';
+                span.style.transform = 'scale(0.5) rotate(0deg)';
+                span.style.transition = 'all 0.25s ease';
+                span.style.willChange = 'transform, opacity, color';
+
+                var rotateValue = 0;
+
+                if (letters[i] === 'Л') {
+                    rotateValue = -6;
+                } else if (letters[i] === 'у') {
+                    rotateValue = 6;
+                } else if (letters[i] === 'к') {
+                    rotateValue = -4;
+                } else if (letters[i] === 'о') {
+                    rotateValue = 0;
+                } else if (letters[i] === 'м') {
+                    rotateValue = 5;
+                } else if (letters[i] === 'р') {
+                    rotateValue = -5;
+                } else if (letters[i] === 'ь') {
+                    rotateValue = 4;
+                } else if (letters[i] === 'е') {
+                    rotateValue = -3;
+                } else {
+                    rotateValue = (i % 2 === 0) ? 5 : -5;
+                }
+
+                titleElement.appendChild(span);
+
+                (function (index, element, rot) {
+                    setTimeout(function () {
+                        element.style.opacity = '1';
+                        element.style.transform = 'scale(1.25) rotate(' + rot + 'deg)';
+                        element.style.color = '#ffd966';
+
+                        setTimeout(function () {
+                            element.style.transform = 'scale(1.05) rotate(' + (rot * -0.3) + 'deg)';
+                            element.style.color = '#ffe5a3';
+
+                            setTimeout(function () {
+                                element.style.transform = 'scale(1) rotate(0deg)';
+                                element.style.color = '#ffffff';
+                            }, 130);
+                        }, 130);
+                    }, index * 100);
+                })(i, span, rotateValue);
+            }
+        }
+    }, 400);
 });
