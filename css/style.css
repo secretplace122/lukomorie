@@ -17,7 +17,6 @@ body {
 
 html {
     scroll-behavior: smooth;
-    /* Убираем overflow-x: hidden с html, оставляем только на body */
 }
 
 .parallax-bg {
@@ -310,6 +309,7 @@ html {
     transition: 0.3s ease;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .card:hover {
@@ -365,7 +365,10 @@ html {
     margin-bottom: 12px;
     line-height: 1.4;
     overflow: visible;
-    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .card__buttons {
@@ -415,8 +418,8 @@ html {
 
 .carousel-track {
     display: flex;
-    gap: 16px;
-    padding: 8px 4px;
+    gap: 10px;
+    padding: 8px 1px;
 }
 
 .schedule-card {
@@ -538,6 +541,7 @@ html {
     transition: 0.3s ease;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .holiday-card:hover {
@@ -821,11 +825,12 @@ html {
 .modal__img {
     height: 360px;
     width: 100%;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 24px;
     margin-bottom: 15px;
+    background-color: #f5f0e6;
 }
 
 .modal__price {
@@ -1013,7 +1018,7 @@ html {
 
     .schedule-card {
         min-width: 300px;
-        padding: 10px;
+        padding: 7px;
     }
 
     .schedule-header {
@@ -1029,7 +1034,7 @@ html {
     }
 
     .schedule-day {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .schedule-time-compact {
@@ -1055,21 +1060,21 @@ html {
     }
 
     .parallax-bg {
+        position: fixed;
+        background-attachment: scroll;
         transform: none !important;
         transition: none !important;
-        background-attachment: fixed;
-        background-position: top center;
     }
-    
+
     .schedule-carousel {
         max-width: 100%;
         overflow-x: hidden;
     }
-    
+
     .carousel-track-container {
         width: calc(100% - 60px);
     }
-    
+
     .container {
         padding: 0 12px;
         overflow-x: hidden;
@@ -1108,13 +1113,13 @@ html {
         padding: 4px 8px;
         font-size: 0.65rem;
     }
-    
+
     .carousel-track-container {
         width: calc(100% - 50px);
     }
-    
+
     .carousel-btn {
-        width: 24px;
+        width: 10px;
         height: 32px;
         font-size: 1rem;
     }

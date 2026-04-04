@@ -175,6 +175,10 @@ function openDetailModal(item) {
     var modalAge = document.getElementById("modalAge");
     var modalDesc = document.getElementById("modalDesc");
     modalImg.style.backgroundImage = "url('" + item.img + "')";
+    modalImg.style.backgroundSize = "contain";
+    modalImg.style.backgroundPosition = "center";
+    modalImg.style.backgroundRepeat = "no-repeat";
+    modalImg.style.backgroundColor = "#f5f0e6";
     modalTitle.textContent = item.name;
     modalPrice.textContent = item.price;
     modalAge.innerHTML = "Возраст: " + (item.age || "любой");
