@@ -182,6 +182,27 @@ function openDetailModal(item) {
     modal.style.display = "flex";
 }
 
+function fixImagesOnMobile() {
+    if (window.innerWidth <= 768) {
+        var cardImages = document.querySelectorAll('.card__img');
+        for (var i = 0; i < cardImages.length; i++) {
+            var img = cardImages[i];
+            img.style.backgroundSize = 'contain';
+            img.style.backgroundColor = '#f5f0e6';
+            img.style.backgroundPosition = 'center';
+            img.style.backgroundRepeat = 'no-repeat';
+        }
+        var holidayImages = document.querySelectorAll('.holiday-card__img');
+        for (var i = 0; i < holidayImages.length; i++) {
+            var img = holidayImages[i];
+            img.style.backgroundSize = 'contain';
+            img.style.backgroundColor = '#f5f0e6';
+            img.style.backgroundPosition = 'center';
+            img.style.backgroundRepeat = 'no-repeat';
+        }
+    }
+}
+
 function renderDirections(filter) {
     if (filter === undefined) filter = "all";
     var grid = document.getElementById("directionsGrid");
@@ -227,6 +248,8 @@ function renderDirections(filter) {
             openDetailModal(data);
         });
     }
+    
+    fixImagesOnMobile();
 }
 
 function renderHolidays() {
@@ -270,6 +293,8 @@ function renderHolidays() {
             openDetailModal(data);
         });
     }
+    
+    fixImagesOnMobile();
 }
 
 function renderScheduleCarousel() {
@@ -506,4 +531,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }, 400);
+    
+    window.addEventListener('resize', function() {
+        fixImagesOnMobile();
+    });
 });
