@@ -131,19 +131,6 @@ const scheduleData = {
 
 document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-if (window.innerWidth > 768) {
-    window.addEventListener("scroll", function () {
-        var bg = document.getElementById("parallaxBg");
-        if (bg) {
-            var scrolled = window.scrollY;
-            var maxScroll = document.body.scrollHeight - window.innerHeight;
-            var percent = maxScroll > 0 ? scrolled / maxScroll : 0;
-            var translateY = percent * 30;
-            bg.style.transform = "translateY(" + translateY + "px)";
-        }
-    });
-}
-
 function createLeaves() {
     var container = document.getElementById("leavesContainer");
     if (!container) return;

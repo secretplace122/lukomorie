@@ -31,7 +31,6 @@ html {
     background-repeat: no-repeat;
     z-index: -2;
     opacity: 0.3;
-    will-change: transform;
 }
 
 .falling-leaves-container {
@@ -1059,12 +1058,6 @@ html {
         font-size: 1.2rem;
     }
 
-    .parallax-bg {
-        position: fixed;
-        background-attachment: scroll;
-        transform: none !important;
-        transition: none !important;
-    }
 
     .schedule-carousel {
         max-width: 100%;
