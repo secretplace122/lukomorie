@@ -13,24 +13,24 @@ body {
     position: relative;
     width: 100%;
     max-width: 100%;
+    min-height: 1vh;
 }
 
 html {
     scroll-behavior: smooth;
 }
 
-.parallax-bg {
+.pattern-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../img/background.webp');
     background-size: cover;
-    background-position: top center;
+    background-position: center center;
     background-repeat: no-repeat;
     z-index: -2;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 .falling-leaves-container {
@@ -879,13 +879,9 @@ html {
 }
 
 @media (max-width: 768px) {
-    .parallax-bg {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        background-attachment: scroll;
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
+    .pattern-bg {
+        background-size: auto;
+        background-position: top center;
     }
 
     .header__contacts {
